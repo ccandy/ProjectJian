@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using JianAdventure.Managers;
 using UnityEngine;
-using ProjectJian.SOs;
+using JianAdventure.SOs;
 
-namespace ProjectJian.Models
+namespace JianAdventure.Models
 {
     public class Character
     {

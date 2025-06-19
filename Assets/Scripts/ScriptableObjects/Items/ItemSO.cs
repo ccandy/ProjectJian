@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ProjectJian.SOs
+namespace JianAdventure.SOs
 {
     [CreateAssetMenu(menuName = "JianAdventure/ItemSO", fileName = "ItemSO")]
     public class ItemSO : ScriptableObject

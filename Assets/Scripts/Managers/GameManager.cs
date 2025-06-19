@@ -1,5 +1,5 @@
-using ProjectJian.Models;
-using ProjectJian.SOs;
+using JianAdventure.Models;
+using JianAdventure.SOs;
 using UnityEngine;
 
 namespace JianAdventure.Managers

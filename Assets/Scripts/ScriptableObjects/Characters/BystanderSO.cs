@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace ProjectJian.SOs
+namespace JianAdventure.SOs
 {
     //路人NPC
     [CreateAssetMenu(menuName = "ProjectJian/BystanderSO", fileName = "BystanderSO")]

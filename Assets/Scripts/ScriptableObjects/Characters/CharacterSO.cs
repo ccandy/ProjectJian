@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ProjectJian.SOs
+namespace JianAdventure.SOs
 {
     public class CharacterSO : NPCSO
     {

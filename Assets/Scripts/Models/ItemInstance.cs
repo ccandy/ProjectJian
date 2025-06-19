@@ -1,8 +1,8 @@
 using JianAdventure;
 using JianAdventure.Managers;
-using ProjectJian.SOs;
+using JianAdventure.SOs;
 
-namespace JianAdventure.Model
+namespace JianAdventure.Models
 {
     /// <summary>
     /// 道具实例，用于运行时背包管理
