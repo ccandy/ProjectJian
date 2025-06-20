@@ -1,6 +1,6 @@
 using System.Collections;
 using JianAdventure.Managers;
-using ProjectJian.SOs;
+using JianAdventure.Models;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -8,23 +8,31 @@ using TMPro;
 namespace JianAdventure.Managers
 {
     /// <summary>
-    /// 全局 UI 管理器，负责显示消息、对话框及其他界面元素
+    /// 全局 UI 管理器，负责显示消息、对话、和其他界面元素
     /// </summary>
     public class UIManager : MonoBehaviour
     {
         public static UIManager Instance { get; private set; }
 
         [Header("Message Panel")]
-        [Tooltip("用于临时提示的面板")] public CanvasGroup messagePanel;
-        [Tooltip("消息文本组件")] public TextMeshProUGUI messageText;
-        [Tooltip("提示显示时长（秒）")] public float messageDuration = 2f;
+        [Tooltip("用于临时提示的面板")]
+        public CanvasGroup messagePanel;
+        [Tooltip("消息文本组件")]
+        public TextMeshProUGUI messageText;
+        [Tooltip("提示显示时长（秒）")]
+        public float messageDuration = 2f;
 
         [Header("Dialogue UI")]        
-        [Tooltip("对话框根对象")] public GameObject dialoguePanel;
-        [Tooltip("对话者立绘展示")] public Image dialoguePortrait;
-        [Tooltip("对话文本展示")] public TextMeshProUGUI dialogueContent;
-        [Tooltip("选项按钮模板")] public Button optionButtonPrefab;
-        [Tooltip("选项按钮父容器")] public Transform optionsContainer;
+        [Tooltip("对话框根对象")]
+        public GameObject dialoguePanel;
+        [Tooltip("对话者立绘展示")]
+        public Image dialoguePortrait;
+        [Tooltip("对话文本展示")]
+        public TextMeshProUGUI dialogueContent;
+        [Tooltip("选项按钮模板（Prefab 应绑定 Button）")]
+        public Button optionButtonPrefab;
+        [Tooltip("选项按钮父容器，用于动态生成按钮")]  
+        public Transform optionsContainer;
 
         private void Awake()
         {
@@ -62,18 +70,19 @@ namespace JianAdventure.Managers
 
         #region Dialogue
         /// <summary>
-        /// 开始对话，显示对话 UI
+        /// 显示 DialogNode 运行时模型对应的对话界面
         /// </summary>
-        public void ShowDialogue(DialogueNodeSO node)
+        public void ShowDialogue(DialogueNode node)
         {
             dialoguePanel.SetActive(true);
             dialoguePortrait.sprite = node.Portrait;
             dialogueContent.text = node.Text;
 
             // 清空旧选项
-            foreach (Transform t in optionsContainer) Destroy(t.gameObject);
+            foreach (Transform child in optionsContainer)
+                Destroy(child.gameObject);
 
-            // 创建新选项
+            // 动态生成选项按钮
             foreach (var opt in node.Options)
             {
                 var btn = Instantiate(optionButtonPrefab, optionsContainer);
@@ -83,28 +92,25 @@ namespace JianAdventure.Managers
         }
 
         /// <summary>
-        /// 处理选项点击
+        /// 隐藏对话界面
         /// </summary>
-        private void OnOptionSelected(DialogueOptionSO opt)
+        public void HideDialogue()
         {
-            // 隐藏对话框
             dialoguePanel.SetActive(false);
-            // 执行选项对应逻辑，通过配置的 ConsequenceID 触发事件
-            if (!string.IsNullOrEmpty(opt.ConsequenceID))
-            {
-                EventManager.Instance.TriggerEvent(opt.ConsequenceID, GameManager.Instance.Player);
-            }
-            // 跳转下一对话节点
-            if (!string.IsNullOrEmpty(opt.NextNodeID))
-            {
-                var nextNode = Resources.Load<DialogueNodeSO>("Dialogues/" + opt.NextNodeID);
-                if (nextNode != null) ShowDialogue(nextNode);
-            }
+        }
+
+        /// <summary>
+        /// 选项点击回调，交由 DialogueManager 处理后果和跳转
+        /// </summary>
+        private void OnOptionSelected(DialogueOption opt)
+        {
+            HideDialogue();
+            DialogueManager.Instance.OnOptionSelected(opt);
         }
         #endregion
 
-        #region Inventory UI (示例)
-        // TODO: 添加显示/隐藏背包界面的接口
+        #region Inventory UI (待实现)
+        // TODO: 添加背包界面 Show/Hide 以及拖拽逻辑
         #endregion
     }
 }
