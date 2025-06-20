@@ -9,7 +9,11 @@ namespace JianAdventure.SOs
     public class NPCSO : BystanderSO
     {
         [Header("NPC Affection")]
-        [Range(1, 100)] public int Affection;
+        public int Affection;
+        [Header("Appearance Window")]
+        public TimeWindow AvailableHours;
+        [Header("Home Location")]
+        public LocationSO HomeLocation;
     }
 }
 
