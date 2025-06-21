@@ -11,15 +11,14 @@ namespace JianAdventure.Managers
     {
         public static GameManager Instance { get; private set; }
 
-        [Header("Player Setup")]
-        [Tooltip("通过 Inspector 指定主角的 ScriptableObject 数据")] 
-        public CharacterSO PlayerSO;
-
-        public Character Player { get; private set; }
+        /// <summary>
+        /// 直接从 CharacterManager 获取玩家运行时数据
+        /// </summary>
+        public Character Player => CharacterManager.Instance.Player;
 
         private void Awake()
         {
-            // 单例检查
+            // 单例模式初始化
             if (Instance == null)
             {
                 Instance = this;
@@ -28,31 +27,16 @@ namespace JianAdventure.Managers
             else
             {
                 Destroy(gameObject);
-                return;
-            }
-        }
-
-        private void Start()
-        {
-            // 创建主角运行时数据
-            if (PlayerSO != null)
-            {
-                Player = new Character(PlayerSO);
-            }
-            else
-            {
-                Debug.LogError("GameManager: PlayerSO 未绑定，请在 Inspector 中设置");
             }
         }
 
         /// <summary>
-        /// 结束游戏时调用，传入结束原因
+        /// 游戏结束处理，传入失败原因
         /// </summary>
         public void GameOver(string reason)
         {
-            Debug.LogError($"游戏结束：{reason}");
-            // TODO: 跳转到结束界面或播放动画
-            // SceneManager.LoadScene("GameOverScene");
+            Debug.LogError($"Game Over: {reason}");
+            // TODO: 加载结束场景或弹出失败面板
         }
     }
 }
