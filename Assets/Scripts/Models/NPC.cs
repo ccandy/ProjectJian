@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace JianAdventure.Models
 {
+    /// <summary>
+    /// 好感度 NPC 运行时模型
+    /// </summary>
     public class NPC
     {
         public NPCSO Data { get; private set; }
@@ -16,6 +19,9 @@ namespace JianAdventure.Models
             Affection = so.Affection;
         }
 
+        /// <summary>
+        /// 修改 NPC 好感度
+        /// </summary>
         public void ModifyAffection(int delta)
         {
             Affection = Mathf.Clamp(Affection + delta, 1, 100);
