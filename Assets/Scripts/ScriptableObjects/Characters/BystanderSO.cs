@@ -6,7 +6,7 @@ using UnityEngine;
 namespace JianAdventure.SOs
 {
     //路人NPC
-    [CreateAssetMenu(menuName = "ProjectJian/BystanderSO", fileName = "BystanderSO")]
+    [CreateAssetMenu(menuName = "JianAdventure/BystanderSO", fileName = "BystanderSO")]
     public class BystanderSO : ScriptableObject
     {
         public string Name;
