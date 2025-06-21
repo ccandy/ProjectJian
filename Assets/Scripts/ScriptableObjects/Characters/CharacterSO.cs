@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace JianAdventure.SOs
 {
+    [CreateAssetMenu(menuName = "JianAdventure/CharacterSO", fileName = "CharacterSO")]
     public class CharacterSO : NPCSO
     {
         [Header("Base Stats")]
