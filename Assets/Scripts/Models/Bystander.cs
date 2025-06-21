@@ -13,6 +13,5 @@ namespace JianAdventure.Models
             Data = so;
         }
     }
-
 }
     
